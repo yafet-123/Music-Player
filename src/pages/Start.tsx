@@ -1,12 +1,11 @@
 import React from 'react';
 import Statistics from '../components/Statistics';
+import styled from '@emotion/styled'
+import HeroSection from "../components/HeroSection"
 
 const Stat: React.FC = () => {
   return (
-    <div>
-      <h1>Song Statistics</h1>
-      <Statistics />
-    </div>
+    <h1>Yafet</h1>
   );
 };
 

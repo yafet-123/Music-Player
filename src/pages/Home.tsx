@@ -8,7 +8,6 @@ const Home: React.FC = () => {
   return (
     <div>
       <Header>Welcome to the Song Manager</Header>
-      <SongForm />
       <SongList />
     </div>
   );

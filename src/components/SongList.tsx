@@ -2,6 +2,8 @@ import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchSongsRequest } from '../features/songs/songsSlice';
 import { RootState } from '../features/store';
+import styled from "@emotion/styled";
+import MusicImageCategory from './MusicImageCategory'
 
 const SongList: React.FC = () => {
   const dispatch = useDispatch();
@@ -11,12 +13,12 @@ const SongList: React.FC = () => {
     dispatch(fetchSongsRequest());
   }, [dispatch]);
 
-  if (loading) return <p>Loading...</p>;
-  if (error) return <p>Error: {error}</p>;
+  // if (loading) return <p>Loading...</p>;
+  // if (error) return <p>Error: {error}</p>;
 
   return (
-    <div>
-      <h2>Song List</h2>
+    <TopDiv>
+      <MusicImageCategory />
       <ul>
         {songs.map((song) => (
           <li key={song.id}>
@@ -24,8 +26,18 @@ const SongList: React.FC = () => {
           </li>
         ))}
       </ul>
-    </div>
+    </TopDiv>
   );
 };
 
 export default SongList;
+
+const TopDiv = styled.div`
+  margin-top:50px;
+  display:flex;
+  flex-direction:column;
+`
+
+
+
+
