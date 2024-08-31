@@ -2,7 +2,7 @@ import React from 'react';
 import { Provider } from 'react-redux';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import Home from './pages/Home';
-import Start from './pages/Start';
+import Music from './pages/Music';
 import store from './features/store';
 
 const App: React.FC = () => {
@@ -11,7 +11,7 @@ const App: React.FC = () => {
       <Router>
         <Routes>
           <Route path="/" element={<Home />} />
-          <Route path="/start" element={<Start />} />
+          <Route path="/Music" element={<Music />} />
         </Routes>
       </Router>
     </Provider>
