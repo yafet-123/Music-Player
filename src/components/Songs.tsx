@@ -1,44 +1,110 @@
 import React,{useState} from 'react';
 import styled from "@emotion/styled";
+import { useSelector, useDispatch } from 'react-redux';
+import { deleteSong } from '../features/songs/songsSlice';
 
-const Songs = ({songs}) => {
-  console.log(songs)
+const Songs = ({songs, categories}) => {
+  const dispatch = useDispatch();
+  const handleEditSong = async (song) => {
+    
+  };
+  const handleDelete = (id: number) => {
+    dispatch(deleteSong(id));
+  };
   return (
-    <SongsUnorderList>
-      {songs.map((song) => (
-        <SongsList key={song.id}>
-          <SongsImage
-            src={song.image}
-            alt={song.title}
-          />
+    <Container>
+      <CategoriesDescreption>
+        <SongCategoryImage
+          src={categories[0].image}
+          alt={categories[0].category}
+        />
+        <Title>
+          {categories[0].category}
+        </Title>
+        <Descreption>
+          {categories[0].description}
+        </Descreption>
+      </CategoriesDescreption>
+      <SongsDiv>
+        {songs.map((song) => (
+          <SongsButton key={song._id}>
+            <SongsImage
+              src={song.image}
+              alt={song.title}
+            />
 
-          <SongsDescreption>
-            <SongsTitle>
-              {song.title}
-            </SongsTitle>
+            <SongsDescreption>
+              <SongsTitle>
+                {song.title}
+              </SongsTitle>
 
-            <SongsArtist>
-              {song.artist}
-            </SongsArtist>
-          </SongsDescreption>
-        </SongsList>
-      ))}
-    </SongsUnorderList>
+              <SongsArtist>
+                {song.artist}
+              </SongsArtist>
+              <Button onClick={() => handleEditSong(song)}>
+                Edit  
+              </Button>
+              <Button onClick={() => handleDelete(song._id)}>
+                Delete  
+              </Button> 
+            </SongsDescreption>
+          </SongsButton>
+        ))}
+      </SongsDiv>
+    </Container>
   );
 };
 
 export default Songs;
 
-const SongsUnorderList = styled.ul`
+const Container = styled.div`
   display:flex;
   flex-direction:column;
 `
 
-const SongsList = styled.li`
+const CategoriesDescreption = styled.div`
+  display:flex;
+  flex-direction:column;
+`
+
+const SongsDiv = styled.div`
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1.25rem;
+  padding:10px 20px;
+  @media (min-width: 768px) {
+    grid-template-columns: repeat(3, 1fr);
+  }
+`
+const Title = styled.h1`
+  color:#11665b;
+  text-align: left;
+  text-transform:capitalize;
+  font-size:30px;
+  padding:10px 15px;
+`
+const Descreption = styled.p`
+  color:#232323;
+  text-align: left;
+  text-transform:capitalize;
+  font-size:25px;
+  padding:10px 15px;
+`
+
+const SongsButton = styled.div`
   margin-bottom:10px;
-  list-style-type: none;
+  border:none;
+  background-color:transparent;
   display:flex;
   align-items:center;
+  margin:10px 0px;
+
+`
+const SongCategoryImage = styled.img`
+  width:100%;
+  height:400px;
+  background-size: cover;
+  background-position: center;
 `
 
 const SongsImage = styled.img`
@@ -52,6 +118,7 @@ const SongsImage = styled.img`
 const SongsDescreption = styled.div`
   display:flex;
   flex-direction:column;
+  width:100%;
 `
 
 const SongsTitle = styled.h2`
@@ -59,6 +126,8 @@ const SongsTitle = styled.h2`
   text-transform:capitalize;
   color:#11665b;
   font-family: "Times New Roman", Times, serif;
+  text-align:left;
+  padding:5px 0px;
 `
 
 const SongsArtist = styled.h4`
@@ -66,4 +135,16 @@ const SongsArtist = styled.h4`
   text-transform:capitalize;
   color:black;
   font-family: "Times New Roman", Times, serif;
+  text-align:left;
+  padding:5px 0px;
+`
+
+const Button = styled.button`
+  width:50%;
+  margin-top:10px;
+  padding:4px 0px;
+  border:1px solid black;
+  border-radius:10px;
+  background-color:#11665b;
+  color:white;
 `

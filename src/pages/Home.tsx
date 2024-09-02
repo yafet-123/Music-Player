@@ -1,16 +1,24 @@
 import React, { useState } from 'react';
 import styled from '@emotion/styled'
-
+import { useNavigate } from 'react-router-dom';
 import MusicImageCategory from '../components/MusicImageCategory1';
 import SongForm from '../components/SongForm';
+import "../assets/input.css"
 
 const Home: React.FC = () => {
   const [loading, setloading] =useState(false)
+  const navigate = useNavigate();
+  const handleClick = (category) => {
+    // Navigate to the "About" page
+    navigate({
+      pathname: '/Add/Music',
+    });
+  };
   return (
     <HomeTopDiv>
       <HomeSecondDiv>
         <Header>Welcome to the Song Manager</Header>
-        <AddButton type="submit" disabled={loading}>Add Song</AddButton>
+        <AddButton type="submit" disabled={loading} onClick={() => handleClick()} >Add Song</AddButton>
       </HomeSecondDiv>
       <MusicImageCategory />
     </HomeTopDiv>
@@ -29,12 +37,17 @@ const HomeTopDiv= styled.div`
   display:flex;
   flex-direction:column;
   padding:0px 1.25rem;
+  background-color:#f0f0f0;
 `
 
 const HomeSecondDiv = styled.div`
   display:flex;
   justify-content:space-between;
   align-items:center;
+  margin-bottom:20px;
+  margin-top:10px;
+  margin-left: 5rem;
+  margin-right: 5rem;
 `
 
 const AddButton = styled.button`
@@ -43,11 +56,10 @@ const AddButton = styled.button`
   display: flex;
   justify-content: space-between;
   border-radius: 1rem;
-  width: 8rem;
   color: white;
   font-weight: 500;
   font-size: 1.25rem;
-  padding: 1rem;
+  padding: 1rem 3rem;
   text-align: center;
   align-items: center;
 

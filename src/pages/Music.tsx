@@ -3,6 +3,7 @@ import SongList from '../components/SongList';
 import styled from '@emotion/styled'
 import HeroSection from "../components/HeroSection"
 import { useLocation } from 'react-router-dom';
+import "../assets/input.css"
 
 const Music: React.FC = () => {
   const location = useLocation();
