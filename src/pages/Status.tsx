@@ -12,7 +12,7 @@ const Status: React.FC = ({category}) => {
   console.log(songs.totalAlbums)
   useEffect(() => {
     dispatch(fetchSongsRequestStatus());
-  }, [dispatch]);
+  }, []);
 
   if (loading) return <Loader />;
   if (error) return <p>Error: {error}</p>;
