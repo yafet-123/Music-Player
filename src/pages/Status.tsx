@@ -121,17 +121,18 @@ export default Status;
 const StatusDiv = styled.div`
   display:flex;
   flex-direction:column;
-  margin-left: 1.25rem;
-  margin-right: 1.25rem;
-
+  padding-left: 1.25rem;
+  padding-right: 1.25rem;
+  background-color:#f0f0f0;
+  height:100vh;
   @media (min-width: 768px) {
-    margin-left: 2.5rem;
-    margin-right: 2.5rem;
+    padding-left: 2.5rem;
+    padding-right: 2.5rem;
   }
 
   @media (min-width: 1024px) {
-    margin-left: 5rem;
-    margin-right: 5rem;
+    padding-left: 5rem;
+    padding-right: 5rem;
   }
 `
 
@@ -179,7 +180,7 @@ const GenreDiv = styled.div`
   display:flex;
   justify-content:space-between;
   align-content:center;
-  background-color:#f2f3f5;
+  background-color:#cccccc;
   padding:2px;
   margin-bottom:10px;
 `
