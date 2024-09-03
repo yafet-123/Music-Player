@@ -1,7 +1,7 @@
 const MusicCategory = [
     {
       id: 1,
-      image: '../../public/image/bg-1.jpg',
+      image: '../../public/image/bg-11.jpg',
       category: 'pop',
       description: "Catchy, mainstream music with strong melodies and universal appeal."
     },
@@ -19,7 +19,7 @@ const MusicCategory = [
     },
     {
       id: 4,
-      image: '../../public/image/bg-1.jpg',
+      image: '../../public/image/bg-10.jpg',
       category: 'Opera',
       description: "Dramatic and classical music with powerful vocal performances and orchestral accompaniment."
     },
