@@ -28,8 +28,7 @@ const Status: React.FC<StatusProps> = () => {
   }, [dispatch]);
 
   if (isLoading || loading) return <Loader />;
-  if (error) return <p>Error: {error}</p>;
-
+  
   // The rest of your component logic goes here
   console.log(status);
   return (
