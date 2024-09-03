@@ -30,8 +30,8 @@ const songsSlice = createSlice({
     fetchSongsRequestStatus(state) {
       state.loading = true;
     },
-    fetchSongsSuccessStatus(state, action: PayloadAction<Song[]>) {
-      state.songs = action.payload;
+    fetchSongsSuccessStatus(state, action: PayloadAction<any>) {
+      state.status = action.payload;
       state.loading = false;
     },
     fetchSongsFailureStatus(state, action: PayloadAction<string>) {

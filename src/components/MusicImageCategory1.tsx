@@ -23,7 +23,7 @@ const MusicImageCategory = () => {
             <Image
               alt={item.category}
               layout="fill"
-              src={item.image}
+              src="../../public/image/bg-4.jpg"
               className="rounded-tr-xl rounded-tl-xl filter brightness-50"
             />
           </ImageContainer>
