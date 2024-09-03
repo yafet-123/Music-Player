@@ -40,6 +40,7 @@ export default SongList;
 const TopDiv = styled.div`
   display:flex;
   flex-direction:column;
+  background-color:#f0f0f0;
 `
 
 const NotFound = styled.h1`
@@ -49,6 +50,8 @@ const NotFound = styled.h1`
   color:#11665b;
   font-family: "Times New Roman", Times, serif;
   text-align:center;
+  width:100%;
+  height:100vh;
 `
 
 
