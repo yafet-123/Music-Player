@@ -5,6 +5,8 @@ import Home from './pages/Home';
 import Music from './pages/Music';
 import store from './features/store';
 import Musics from './pages/Add/Musics';
+import EditMusic from './pages/Edit/Music'
+import Status from "./pages/Status"
 
 const App: React.FC = () => {
   return (
@@ -14,6 +16,8 @@ const App: React.FC = () => {
           <Route path="/" element={<Home />} />
           <Route path="/Music" element={<Music />} />
           <Route path="/Add/Music" element={<Musics />} />
+          <Route path="/Edit/Music" element={<EditMusic />} />
+          <Route path="/Status" element={<Status />} />
         </Routes>
       </Router>
     </Provider>

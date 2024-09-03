@@ -1,16 +1,28 @@
 import React,{useState} from 'react';
 import styled from "@emotion/styled";
 import { useSelector, useDispatch } from 'react-redux';
-import { deleteSong } from '../features/songs/songsSlice';
+import { useNavigate } from 'react-router-dom';
+import deleteSong from '../features/deleteThunks';
 
 const Songs = ({songs, categories}) => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const handleEditSong = async (song) => {
-    
+    navigate(`/Edit/Music?id=${song._id}`);
   };
-  const handleDelete = (id: number) => {
-    dispatch(deleteSong(id));
+  
+  const handleDelete = async (id: number) => {
+    const isConfirmed = window.confirm("Are you sure you want to delete this song?");
+    if (isConfirmed) {
+      try {
+        await dispatch(deleteSong(id));
+        window.location.reload(); // Refreshes the page after deletion
+      } catch (error) {
+        console.error('Failed to delete the song:', error);
+      }
+    }
   };
+
   return (
     <Container>
       <CategoriesDescreption>
@@ -41,12 +53,14 @@ const Songs = ({songs, categories}) => {
               <SongsArtist>
                 {song.artist}
               </SongsArtist>
-              <Button onClick={() => handleEditSong(song)}>
-                Edit  
-              </Button>
-              <Button onClick={() => handleDelete(song._id)}>
-                Delete  
-              </Button> 
+              <ButtonDiv>
+                <Button onClick={() => handleEditSong(song)}>
+                  Edit  
+                </Button>
+                <Button onClick={() => handleDelete(song._id)}>
+                  Delete  
+                </Button> 
+              </ButtonDiv>
             </SongsDescreption>
           </SongsButton>
         ))}
@@ -60,6 +74,7 @@ export default Songs;
 const Container = styled.div`
   display:flex;
   flex-direction:column;
+  background-color:#f2f3f5;
 `
 
 const CategoriesDescreption = styled.div`
@@ -98,7 +113,10 @@ const SongsButton = styled.div`
   display:flex;
   align-items:center;
   margin:10px 0px;
-
+  background-color:#232323;
+  padding:20px 10px;
+  border:1px solid #232323;
+  border-radius:10px;
 `
 const SongCategoryImage = styled.img`
   width:100%;
@@ -124,27 +142,34 @@ const SongsDescreption = styled.div`
 const SongsTitle = styled.h2`
   font-size:15px;
   text-transform:capitalize;
-  color:#11665b;
+  color:#fff;
   font-family: "Times New Roman", Times, serif;
   text-align:left;
   padding:5px 0px;
 `
 
 const SongsArtist = styled.h4`
-  font-size:10px;
+  font-size:15px;
   text-transform:capitalize;
   color:black;
   font-family: "Times New Roman", Times, serif;
   text-align:left;
   padding:5px 0px;
+  color:#fff;
 `
 
 const Button = styled.button`
-  width:50%;
+  width:25%;
   margin-top:10px;
-  padding:4px 0px;
+  padding:10px 0px;
   border:1px solid black;
   border-radius:10px;
   background-color:#11665b;
   color:white;
+`
+
+const ButtonDiv = styled.div`
+  display:flex;
+  justify-content:space-between;
+  align-content:center;
 `

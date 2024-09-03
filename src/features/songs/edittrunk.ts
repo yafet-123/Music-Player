@@ -1,17 +1,17 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
-import { Song } from './songs/types';
+import { Song } from './types';
 
 const editSong = createAsyncThunk(
   'songs/editSong',
-  async (updatedSong: Song, { rejectWithValue }) => {
+  async (song: Song, { rejectWithValue }) => {
     try {
-      console.log(updatedSong)
-      const response = await fetch(`https://music-server-z30k.onrender.com/songs/${updatedSong.id}`, {
+      console.log(song)
+      const response = await fetch(`https://music-server-z30k.onrender.com/songs/${song._id}`, {
         method: 'put',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify(updatedSong),
+        body: JSON.stringify(song),
       });
       if (!response.ok) {
         throw new Error('Failed to create song');

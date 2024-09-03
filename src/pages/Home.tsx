@@ -19,7 +19,7 @@ const Home: React.FC = () => {
       <HomeSecondDiv>
         <Header>Welcome to the Song Manager</Header>
         <AddButton type="submit" disabled={loading} onClick={() => handleClick()} >Add Song</AddButton>
-      </HomeSecondDiv>
+      </HomeSecondDiv> 
       <MusicImageCategory />
     </HomeTopDiv>
   );
@@ -41,18 +41,28 @@ const HomeTopDiv= styled.div`
 `
 
 const HomeSecondDiv = styled.div`
-  display:flex;
+  display: flex;
+  flex-direction:column;
   justify-content:space-between;
   align-items:center;
-  margin-bottom:20px;
-  margin-top:10px;
-  margin-left: 5rem;
-  margin-right: 5rem;
+  margin:1.5rem 1.25rem;
+
+  @media (min-width: 768px) {
+    flex-direction:row;
+    margin-left: 2.5rem;
+    margin-right: 2.5rem;
+  }
+
+  @media (min-width: 1024px) {
+    margin-left: 5rem;
+    margin-right: 5rem;
+  }
 `
 
 const AddButton = styled.button`
   float: right;
   margin-right: 0.5rem;
+  margin-top:20px;
   display: flex;
   justify-content: space-between;
   border-radius: 1rem;
@@ -62,6 +72,10 @@ const AddButton = styled.button`
   padding: 1rem 3rem;
   text-align: center;
   align-items: center;
+
+  @media (min-width: 768px) {
+    margin-top:0px;
+  }
 
   ${({ loading }) => loading ? `
     background-color: #e5e7eb; /* Equivalent to bg-gray-200 */

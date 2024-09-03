@@ -1,11 +1,13 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import styled from '@emotion/styled';
-import { useDispatch } from 'react-redux';
-import createSong from '../../features/songsThunks';
-import { useLocation } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+import { useLocation, useNavigate } from 'react-router-dom';
+import { selectSongById } from '../../features/songs/songsSlice';
+import editSong from '../../features/songs/edittrunk';
 
 const TopContainer = styled.div`
   display: flex;
+  flex-direction:column;
   align-items: center;
   justify-content: center;
   min-height: 100vh;
@@ -123,19 +125,44 @@ const SubmitButton = styled.button<{ loading: boolean }>`
   `}
 `;
 
-const Musics: React.FC = () => {
+const Header = styled.h1`
+  color:#11665b;
+  text-align: center;
+  text-transform:capitalize;
+  font-size:35px;
+`
+
+const EditMusic: React.FC = () => {
   const location = useLocation();
-  const { songToEdit } = location.state;
-  console.log(songToEdit);
-  
+  const navigate = useNavigate();
+  const queryParams = new URLSearchParams(location.search);
+  const songId = queryParams.get('id');
+  console.log(songId)
+  const songs = useSelector(state => selectSongById(state, songId));
+  console.log(songs)
   const dispatch = useDispatch();
   const [song, setSong] = useState({
+    _id:'',
     title: '',
     artist: '',
     album: '',
     genre: '',
     image: ''
   });
+
+  useEffect(() => {
+    if (songs) {
+      setSong({
+        _id:songs._id || '',
+        title: songs.title || '',
+        artist: songs.artist || '',
+        album: songs.album || '',
+        genre: songs.genre || '',
+        image: songs.image || ''
+      });
+    }
+  }, [songs]);
+
   const [loading, setLoading] = useState(false);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -147,14 +174,8 @@ const Musics: React.FC = () => {
     setLoading(true);
     try {
       console.log(song)
-      await dispatch(createSong(song));
-      setSong({
-        title: '',
-        artist: '',
-        album: '',
-        genre: '',
-        image: ''
-      });
+      await dispatch(editSong(song));
+      navigate('/');
     } catch (error) {
       console.error('Error adding song:', error);
     } finally {
@@ -164,6 +185,7 @@ const Musics: React.FC = () => {
 
   return (
     <TopContainer>
+      <Header>Edit Song</Header>
       <Form onSubmit={handleSubmit}>
         <FormDiv>
           <Container>
@@ -234,7 +256,7 @@ const Musics: React.FC = () => {
           </Container>
         <Container>
           <SubmitButton loading={loading} disabled={loading}>
-            Adding
+            Editing
           </SubmitButton>
         </Container>
       </Form>
@@ -242,4 +264,4 @@ const Musics: React.FC = () => {
   );
 };
 
-export default Musics;
+export default EditMusic;

@@ -2,6 +2,7 @@ import { createSlice, PayloadAction  } from '@reduxjs/toolkit';
 import { SongsState, Song } from './types';
 import createSong from '../songsThunks'; // Import the thunk
 import editSong from './edittrunk'
+import deleteSong from "../deleteThunks"
 import axios from 'axios'
 
 const initialState: SongsState = {
@@ -37,18 +38,6 @@ const songsSlice = createSlice({
       state.error = action.payload;
       state.loading = false;
     },
-    deleteSongRequest(state) {
-      state.loading = true;
-    },
-    deleteSongSuccess(state, action: PayloadAction<number>) {
-      state.songs = state.songs.filter(song => song.id !== action.payload);
-      state.loading = false;
-      state.error = null;
-    },
-    deleteSongFailure(state, action: PayloadAction<string>) {
-      state.error = action.payload;
-      state.loading = false;
-    },
   },
   extraReducers: (builder) => {
     builder
@@ -68,10 +57,10 @@ const songsSlice = createSlice({
       })
       .addCase(editSong.fulfilled, (state, action) => {
         state.loading = false;
-        const updatedSong = action.payload;
-        const index = state.songs.findIndex(song => song.id === updatedSong.id);
+        const song = action.payload;
+        const index = state.songs.findIndex(song => song._id === song._id);
         if (index !== -1) {
-          state.songs[index] = updatedSong;
+          state.songs[index] = song;
         }
         state.error = null;
       })
@@ -79,8 +68,22 @@ const songsSlice = createSlice({
         state.loading = false;
         state.error = action.error.message ?? 'Failed to edit song';
       })
+      .addCase(deleteSong.pending, (state) => {
+        state.loading = true;
+      })
+      .addCase(deleteSong.fulfilled, (state, action) => {
+        state.songs = state.songs.filter(song => song._id !== action.payload);
+        state.loading = false;
+      })
+      .addCase(deleteSong.rejected, (state, action) => {
+        state.error = action.payload as string;
+        state.loading = false;
+      })
   },
 });
+
+export const selectSongById = (state: { songs: SongsState }, songId: number) =>
+  state.songs.songs.find(song => song._id === songId);
 
 export const { 
   fetchSongsRequest, 
@@ -88,30 +91,7 @@ export const {
   fetchSongsFailure,
   fetchSongsRequestStatus, 
   fetchSongsSuccessStatus, 
-  fetchSongsFailureStatus, 
-  deleteSongRequest, 
-  deleteSongSuccess, 
-  deleteSongFailure, 
+  fetchSongsFailureStatus
 } = songsSlice.actions;
 
 export default songsSlice.reducer;
-
-export const deleteSong = (id: number): AppThunk => async (dispatch) => {
-  try {
-    dispatch(deleteSongRequest());
-    const response = await axios.delete(`https://music-server-z30k.onrender.com/songs/${id}`); // Replace with your API endpoint
-    dispatch(deleteSongSuccess(id));
-  } catch (error) {
-    dispatch(deleteSongFailure(error.message));
-  }
-};
-
-export const fetchstatus = (): AppThunk => async (dispatch) => {
-  try {
-    dispatch(fetchSongsRequestStatus());
-    const response = await axios.get('https://music-server-z30k.onrender.com/songs/stats'); // Replace with your API endpoint
-    dispatch(fetchSongsSuccessStatus(response.data));
-  } catch (error) {
-    dispatch(fetchSongsFailureStatus(error.message));
-  }
-};

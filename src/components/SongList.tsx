@@ -7,7 +7,7 @@ import MusicImageCategory from './MusicImageCategory1'
 import Songs from './Songs'
 import Loader from "./Loading"
 import MusicCategory from "../assets/data/MusicCategory"
-
+ 
 const SongList: React.FC = ({category}) => {
   const dispatch = useDispatch();
   const { songs, loading, error } = useSelector((state: RootState) => state.songs);
@@ -43,7 +43,8 @@ const TopDiv = styled.div`
 `
 
 const NotFound = styled.h1`
-  font-size:25px;
+  margin-top:20px;
+  font-size:20px;
   text-transform:capitalize;
   color:#11665b;
   font-family: "Times New Roman", Times, serif;

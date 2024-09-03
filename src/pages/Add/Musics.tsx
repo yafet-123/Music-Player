@@ -2,9 +2,11 @@ import React, { useState } from 'react';
 import styled from '@emotion/styled';
 import { useDispatch } from 'react-redux';
 import createSong from '../../features/songsThunks';
+import { useLocation, useNavigate } from 'react-router-dom';
 
 const TopContainer = styled.div`
   display: flex;
+  flex-direction:column;
   align-items: center;
   justify-content: center;
   min-height: 100vh;
@@ -122,8 +124,16 @@ const SubmitButton = styled.button<{ loading: boolean }>`
   `}
 `;
 
+const Header = styled.h1`
+  color:#11665b;
+  text-align: center;
+  text-transform:capitalize;
+  font-size:35px;
+`
+
 const Musics: React.FC = () => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const [song, setSong] = useState({
     title: '',
     artist: '',
@@ -143,13 +153,7 @@ const Musics: React.FC = () => {
     try {
       console.log(song)
       await dispatch(createSong(song));
-      setSong({
-        title: '',
-        artist: '',
-        album: '',
-        genre: '',
-        image: ''
-      });
+      navigate('/');
     } catch (error) {
       console.error('Error adding song:', error);
     } finally {
@@ -159,6 +163,7 @@ const Musics: React.FC = () => {
 
   return (
     <TopContainer>
+      <Header>Add Song</Header>
       <Form onSubmit={handleSubmit}>
         <FormDiv>
           <Container>

@@ -31,19 +31,19 @@ const MusicCategory = [
     },
     {
       id: 6,
-      image: '../../public/image/bg-1.jpg',
+      image: '../../public/image/bg-8.jpg',
       category: 'Hip-Hop',
       description: "Urban music characterized by rhythmic speech, beats, and a strong cultural influence."
     },
     {
       id: 7,
-      image: '../../public/image/bg-1.jpg',
+      image: '../../public/image/bg-7.jpg',
       category: 'Latin',
       description: "Music originating from Latin America, known for its vibrant rhythms and melodies."
     },
     {
       id: 8,
-      image: '../../public/image/bg-6.jpg',
+      image: '../../public/image/bg-9.jpg',
       category: 'Rock',
       description: "Guitar-driven music with strong rhythms, often conveying rebellion and energy."
     },
