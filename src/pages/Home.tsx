@@ -8,17 +8,26 @@ import "../assets/input.css"
 const Home: React.FC = () => {
   const [loading, setloading] =useState(false)
   const navigate = useNavigate();
-  const handleClick = (category) => {
+  const handleAddClick = (category) => {
     // Navigate to the "About" page
     navigate({
       pathname: '/Add/Music',
     });
   };
+
+  const handleStatus = (category) => {
+    // Navigate to the "About" page
+    navigate({
+      pathname: '/Status',
+    });
+  };
+
   return (
     <HomeTopDiv>
       <HomeSecondDiv>
         <Header>Welcome to the Song Manager</Header>
-        <AddButton type="submit" disabled={loading} onClick={() => handleClick()} >Add Song</AddButton>
+        <Button type="submit" disabled={loading} onClick={() => handleAddClick()} >Add Song</Button>
+        <Button type="submit" disabled={loading} onClick={() => handleStatus()} >Status</Button>
       </HomeSecondDiv> 
       <MusicImageCategory />
     </HomeTopDiv>
@@ -59,7 +68,7 @@ const HomeSecondDiv = styled.div`
   }
 `
 
-const AddButton = styled.button`
+const Button = styled.button`
   float: right;
   margin-right: 0.5rem;
   margin-top:20px;

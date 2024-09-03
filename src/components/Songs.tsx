@@ -16,7 +16,7 @@ const Songs = ({songs, categories}) => {
     if (isConfirmed) {
       try {
         await dispatch(deleteSong(id));
-        window.location.reload(); // Refreshes the page after deletion
+        navigate(`/Music/?category=${category[0].category}`);
       } catch (error) {
         console.error('Failed to delete the song:', error);
       }
