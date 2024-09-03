@@ -131,10 +131,19 @@ const Header = styled.h1`
   font-size:35px;
 `
 
+interface Song {
+  _id: string;
+  title: string;
+  artist: string;
+  album: string;
+  genre: string;
+  image: string;
+}
+
 const Musics: React.FC = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const [song, setSong] = useState({
+  const [song, setSong] = useState<Song>({
     title: '',
     artist: '',
     album: '',

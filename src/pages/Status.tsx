@@ -9,7 +9,7 @@ import MusicCategory from "../assets/data/MusicCategory"
 const Status: React.FC = ({category}) => {
   const dispatch = useDispatch();
   const { songs, loading, error } = useSelector((state: RootState) => state.songs);
-  console.log(songs)
+  console.log(songs.totalAlbums)
   useEffect(() => {
     dispatch(fetchSongsRequestStatus());
   }, [dispatch]);

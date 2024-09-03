@@ -4,6 +4,7 @@ export interface Song {
   artist: string;
   album: string;
   genre: string;
+  image: string;
 }
 
 export interface SongsState {

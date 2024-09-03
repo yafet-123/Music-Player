@@ -7,7 +7,7 @@ const MusicCategory = [
     },
     {
       id: 2,
-      image: '../../public/image/bg-2.jpg',
+      image: '../../public/image/bg-1.jpg',
       category: 'r and b',
       description: "Rhythmic and soulful music blending elements of jazz, gospel, and blues."
     },

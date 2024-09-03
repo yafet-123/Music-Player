@@ -132,6 +132,15 @@ const Header = styled.h1`
   font-size:35px;
 `
 
+interface Song {
+  _id: string;
+  title: string;
+  artist: string;
+  album: string;
+  genre: string;
+  image: string;
+}
+
 const EditMusic: React.FC = () => {
   const location = useLocation();
   const navigate = useNavigate();
@@ -141,7 +150,7 @@ const EditMusic: React.FC = () => {
   const songs = useSelector(state => selectSongById(state, songId));
   console.log(songs)
   const dispatch = useDispatch();
-  const [song, setSong] = useState({
+  const [song, setSong] = useState<Song>({
     _id:'',
     title: '',
     artist: '',
