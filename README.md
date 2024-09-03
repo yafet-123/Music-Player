@@ -1,15 +1,10 @@
-# music-player-react-ts
+music-player-react-ts
+A fun little music player made with React, TypeScript and Emotion and Styled system
 
-A fun little music player made with React, TypeScript and Tailwind
+You can use this project by simply
 
-Insipired by [gabryx](https://GitHub.com/therealgabryx)
-
-You can use this project by simply 
-- `git clone https://github.com/santeenee/music-player-react-ts`
-- consider using `pnpm` over `npm`
-- `pnpm i` to restore dependencies
-- `pnpm watch-tl` to watch for changes on the tailwindcss side. (Keep this process running in a separated terminal while the 'pnpm dev' one is running)
-- `pnpm dev` to serve the project locally on port 5173
-- other commands in package.json
-
-"# Music-Player" 
+git clone https://github.com/yafet-123/Music-Player
+consider using npm over pnpm
+npm i to restore dependencies
+npm run dev to serve the project locally on port 5173
+other commands in package.json "# Music-Player"
