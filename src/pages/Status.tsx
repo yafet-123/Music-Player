@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchSongsRequestStatus } from '../features/songs/songsSlice';
 import { RootState } from '../features/store';
@@ -6,19 +6,32 @@ import styled from "@emotion/styled";
 import Loader from "../components/Loading"
 import MusicCategory from "../assets/data/MusicCategory"
 
-const Status: React.FC = ({category}) => {
+const Status: React.FC<StatusProps> = () => {
   const dispatch = useDispatch();
-  const { songs, loading, error } = useSelector((state: RootState) => state.songs);
-  console.log(songs.totalAlbums)
-  useEffect(() => {
-    dispatch(fetchSongsRequestStatus());
-  }, []);
+  const { status, loading, error } = useSelector((state: RootState) => state.songs);
 
-  if (loading) return <Loader />;
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchStatusData = async () => {
+      try {
+        setIsLoading(true); // Set local loading state
+        await dispatch(fetchSongsRequestStatus());
+      } catch (err) {
+        console.error('Error fetching status:', err);
+      } finally {
+        setIsLoading(false); // Set loading to false once the fetch is complete
+      }
+    };
+
+    fetchStatusData();
+  }, [dispatch]);
+
+  if (isLoading || loading) return <Loader />;
   if (error) return <p>Error: {error}</p>;
-  const Genres = songs.songsByGenre
-  const Artists = songs.songsByArtist
-  console.log(Genres)
+
+  // The rest of your component logic goes here
+  console.log(status);
   return (
     <StatusDiv>
       <TopDiv>
@@ -28,7 +41,7 @@ const Status: React.FC = ({category}) => {
           </Title>
 
           <NumberSong>
-            {songs.totalAlbums}
+            {status.totalAlbums}
           </NumberSong>
         </Container>
 
@@ -38,7 +51,7 @@ const Status: React.FC = ({category}) => {
           </Title>
 
           <NumberSong>
-            {songs.totalArtists}
+            {status.totalArtists}
           </NumberSong>
         </Container>
 
@@ -48,7 +61,7 @@ const Status: React.FC = ({category}) => {
           </Title>
 
           <NumberSong>
-            {songs.totalGenres}
+            {status.totalGenres}
           </NumberSong>
         </Container>
 
@@ -58,13 +71,13 @@ const Status: React.FC = ({category}) => {
           </Title>
 
           <NumberSong>
-            {songs.totalSongs}
+            {status.totalSongs}
           </NumberSong>
         </Container>
       </TopDiv>
       <SecondDiv>
         <Title>Songs By Genre</Title>
-        {Genres.map((genre,index)=>(
+        {status.songsByGenre.map((genre,index)=>(
           <GenreDiv key={index}>
             <GenerTitle>
               {genre._id}
@@ -78,11 +91,20 @@ const Status: React.FC = ({category}) => {
       </SecondDiv>
       <SecondDiv>
         <Title>Songs By Artists</Title>
-        {Artists.map((artist,index)=>(
+        {status.songsByArtist.map((artist,index)=>(
           <GenreDiv key={index}>
             <GenerTitle>
-              {artist._id}
+              singer : {artist._id}
             </GenerTitle>
+
+            <Albums>
+              <GenerTitle> Albums : </GenerTitle>
+              {artist.albums.map((album,index)=>(
+                <GenerDescreption key={index}>
+                  {album} ,
+                </GenerDescreption>
+              ))}
+            </Albums>
 
             <GenerDescreption>
               songs: {artist.songs}
@@ -157,6 +179,9 @@ const GenreDiv = styled.div`
   display:flex;
   justify-content:space-between;
   align-content:center;
+  background-color:#f2f3f5;
+  padding:2px;
+  margin-bottom:10px;
 `
 const GenerTitle = styled.h1`
   color:#11665b;
@@ -172,4 +197,8 @@ const GenerDescreption = styled.p`
   text-transform:capitalize;
   font-size:25px;
   padding:10px 15px;
+`
+
+const Albums = styled.ul`
+
 `

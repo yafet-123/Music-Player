@@ -31,6 +31,7 @@ const songsSlice = createSlice({
       state.loading = true;
     },
     fetchSongsSuccessStatus(state, action: PayloadAction<any>) {
+      console.log(action.payload)
       state.status = action.payload;
       state.loading = false;
     },
